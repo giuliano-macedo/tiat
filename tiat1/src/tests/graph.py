@@ -1,14 +1,6 @@
 import os
 import sys
-
-sys.path.append(
-	os.path.join(
-		os.path.dirname(
-			os.path.realpath(__file__)
-		),
-		".."
-	)
-)
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)),".."))
 from random import shuffle
 from core import Graph
 
@@ -32,3 +24,5 @@ for _ in range(20):
 	shuffle(path)
 	test_path(path)
 test_path([0]*graph.n,False)
+
+test_path([2, 3, 4, 5, 0, 1])

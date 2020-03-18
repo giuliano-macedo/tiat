@@ -2,7 +2,8 @@ import json
 import numpy as np
 class Graph:
 	def __init__(self,fname="graph.json"):
-		with open(fname) as f:obj=json.load(f)
+		self.fname=fname
+		with open(self.fname) as f:obj=json.load(f)
 		self.nodes=obj["nodes"]
 		self.n=len(self.nodes)
 		self.edges=np.empty((self.n,self.n))
@@ -12,6 +13,9 @@ class Graph:
 			j=self.nodes.index(namej)
 			self.edges[i][j]=w
 			self.edges[j][i]=w
+
+	def __repr__(self):
+		return f"Graph({repr(self.fname)})"
 
 	def get_names_pretty(self):
 		ans=[]
