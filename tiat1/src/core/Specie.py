@@ -1,4 +1,3 @@
-#https://stackoverflow.com/a/312464/5133524
 
 from numpy.random import randint
 
