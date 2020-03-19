@@ -38,5 +38,6 @@ while pool.best.cost!=gloabl_minimum:
 plt.plot(range(0,len(best_costs)),best_costs)
 plt.xlabel("Generation")
 plt.ylabel("Best Cost")
+plt.title(f"population size={pool.popsize} crossover rate={pool.crossover_rate*100:.2g}% mutation rate={pool.mutation_rate*100:.2g}%")
 
 plt.show()
