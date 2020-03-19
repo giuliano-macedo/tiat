@@ -73,8 +73,8 @@ class Specie:
 
 		if len(_set)!=len(self.genes) or 0 in _set:
 			raise RuntimeError("invalid genes",self.genes)
-		cost=self.graph.path_weight([0]+self.genes+[0])
-		return 1/cost
+		self.cost=self.graph.path_weight([0]+self.genes+[0])
+		return 1/self.cost
 
 	def mutate(self):
 		#pair mutation
@@ -86,3 +86,6 @@ class Specie:
 
 		self.genes[i]=b
 		self.genes[j]=a
+
+	def copy(self):
+		return Specie(self.graph,list(self.genes),self.cache_fitness)
