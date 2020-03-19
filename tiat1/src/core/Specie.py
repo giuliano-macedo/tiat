@@ -3,13 +3,17 @@
 from numpy.random import randint
 
 class Specie:
-	def __init__(self,graph,genes):
+	def __init__(self,graph,genes,cache_fitness=True):
 		self.graph=graph
 		self.genes=genes
+		self.cache_fitness=cache_fitness
 		self.n=len(self.genes)
+		if cache_fitness:
+			self.fitness=self.compute_fitness()
 
 	def __repr__(self):
 		return f"Specie({repr(self.graph)},{repr(self.genes)})"
+
 	def __fill_genes(self,genes,offspring,offspring_set,start=0):
 		j=start
 		for i in range(self.n):
@@ -27,8 +31,8 @@ class Specie:
 	def crossover(self,other,cut_points=None):
 		if cut_points==None:
 			mid=self.n//2
-			first_point=randint(1,mid)
-			second_point=randint(mid,self.n)
+			first_point=randint(1,mid+1)
+			second_point=randint(first_point+1,self.n)
 			cut_points=first_point,second_point
 
 		if len(cut_points)!=2:
@@ -50,9 +54,24 @@ class Specie:
 		o2_set|=set(other.genes[l:h])
 
 		#phase 2 fill genes
-		self.__fill_genes(other.genes,o1,o1_set,l-1)
-		self.__fill_genes(self.genes,o2,o2_set,l-1)
+		self.__fill_genes(other.genes,o1,o1_set,
+			# l-1
+			0
+		)
+		self.__fill_genes(self.genes,o2,o2_set,
+			# l-1
+			0
+		)
 
-		return Specie(self.graph,o1),Specie(self.graph,o2)
+		return (
+			Specie(self.graph,o1,self.cache_fitness),
+			Specie(self.graph,o2,self.cache_fitness)
+		)
 
+	def compute_fitness(self):
+		_set=set(self.genes)
 
+		if len(_set)!=len(self.genes) or 0 in _set:
+			raise RuntimeError("invalid genes",self.genes)
+		cost=self.graph.path_weight([0]+self.genes+[0])
+		return 1/cost
