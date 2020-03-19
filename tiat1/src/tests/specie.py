@@ -44,3 +44,7 @@ o1,o2=p1.crossover(p2)
 for specie in (p1,p2,o1,o2):
 	print("genes",specie.genes)
 	print("fitnes",specie.fitness)
+	print("after mutation")
+	specie.mutate()
+	print("genes",specie.genes)
+	print("fitnes",specie.fitness)

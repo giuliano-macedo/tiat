@@ -75,3 +75,14 @@ class Specie:
 			raise RuntimeError("invalid genes",self.genes)
 		cost=self.graph.path_weight([0]+self.genes+[0])
 		return 1/cost
+
+	def mutate(self):
+		#pair mutation
+		pairs=set()
+		while len(pairs)!=2:
+			pairs.add(randint(self.n))
+		i,j=pairs
+		a,b=self.genes[i],self.genes[j]
+
+		self.genes[i]=b
+		self.genes[j]=a
