@@ -31,7 +31,7 @@ class Pool:
 	def __selection(self):
 		#roulette wheel selection
 		next_species=[]
-		for round in range(self.popsize):
+		for _ in range(self.popsize):
 			_sum=0
 			random_number=np.random.random()
 			for specie,p in zip(self.species,self.ps):
