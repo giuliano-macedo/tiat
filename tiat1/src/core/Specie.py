@@ -13,6 +13,11 @@ class Specie:
 	def __repr__(self):
 		return f"Specie({repr(self.graph)},{repr(self.genes)})"
 
+	def __lt__(self,other):
+		if isinstance(other,Specie):
+			return self.fitness<other.fitness
+		return self.fitness<other.fitness
+
 	def __fill_genes(self,genes,offspring,offspring_set,start=0):
 		j=start
 		for i in range(self.n):

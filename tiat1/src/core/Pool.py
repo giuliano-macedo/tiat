@@ -34,11 +34,11 @@ class Pool:
 	def __update_ps(self):
 		sum_fitness=sum((specie.fitness for specie in self.species))
 		self.ps=[specie.fitness/sum_fitness for specie in self.species]
-		_,best=max(((specie.fitness,specie) for specie in self.species),key=lambda t:t[0])
+		current_best=max(self.species)
 		if self.best==None:
-			self.best=best
-		if best.fitness>self.best.fitness:
-			self.best=best
+			self.best=current_best
+		if current_best.fitness>self.best.fitness:
+			self.best=current_best
 
 	def __selection(self):
 		next_species=[roullete_wheel(self.ps,self.species).copy() for _ in range(self.popsize)]
