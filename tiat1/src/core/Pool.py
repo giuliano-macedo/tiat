@@ -1,16 +1,16 @@
 import numpy as np
 from .Specie import Specie
 
-def roullete_wheel(ps):
+def roullete_wheel(ps,haystack):
 	"""
-	returns a choosed index based on roullete wheel selection
+	returns a choosed needle from haystack based on roullete wheel selection
 	"""
 	random_number=np.random.random()
 	_sum=0
-	for i,p in enumerate(ps):
+	for p,needle in zip(ps,haystack):
 		_sum+=p
 		if random_number <= _sum:
-			return i
+			return needle
 
 class Pool:
 	def __init__(self,graph,popsize,crossover_rate,mutation_rate):
@@ -41,7 +41,7 @@ class Pool:
 			self.best=best
 
 	def __selection(self):
-		next_species=[self.species[roullete_wheel(self.ps)].copy() for _ in range(self.popsize)]
+		next_species=[roullete_wheel(self.ps,self.species).copy() for _ in range(self.popsize)]
 		self.species=next_species
 
 	def __breed(self):
