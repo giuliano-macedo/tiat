@@ -1,10 +1,11 @@
 import json
 import numpy as np
 class Graph:
-	def __init__(self,fname="graph.json"):
+	def __init__(self,fname="graph.json",start=None):
 		self.fname=fname
 		with open(self.fname) as f:obj=json.load(f)
 		self.nodes=obj["nodes"]
+		self.startindex=0 if start==None else self.nodes.index(start)
 		self.n=len(self.nodes)
 		self.edges=np.empty((self.n,self.n))
 		self.edges[:]=np.nan

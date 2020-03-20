@@ -28,7 +28,8 @@ pool=Pool(
 	args.mutation_rate
 )
 print(pool.mutation_rate)
-gloabl_minimum=min(Specie(graph,list(sol)).cost for sol in permutations(range(1,6)))
+initial=list(set(range(graph.n))-{graph.startindex})
+gloabl_minimum=min(Specie(graph,list(sol)).cost for sol in permutations(initial))
 
 best_costs=[pool.best.cost]
 while pool.best.cost!=gloabl_minimum:

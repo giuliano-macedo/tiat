@@ -14,10 +14,12 @@ print("initial pop")
 for specie,p in zip(pool.species,pool.ps):
 	print(specie.genes,specie.cost,round(p*100,2))
 
-gloabl_minimum=min(Specie(graph,list(sol)).cost for sol in permutations(range(1,6)))
+initial=list(set(range(graph.n))-{graph.startindex})
 
-print("global minimum",gloabl_minimum)
+gloabl_minimum=max(Specie(graph,list(sol)) for sol in permutations(initial))
 
-while pool.best.cost!=gloabl_minimum:
+print("global minimum",gloabl_minimum.cost)
+
+while pool.best.cost!=gloabl_minimum.cost:
 	pool.step()
 print(f"took {pool.gen} generations to reach gloabl minimum cost")

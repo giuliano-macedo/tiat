@@ -21,7 +21,7 @@ class Pool:
 		self.mutation_rate=mutation_rate
 
 		self.gen=0
-		dummy_genes=list(range(1,graph.n))
+		dummy_genes=list(set(range(graph.n))-{self.graph.startindex})
 
 		self.species=[]
 
