@@ -2,12 +2,16 @@
 from numpy.random import randint
 
 class Specie:
+
 	def __init__(self,graph,genes,cache_fitness=True):
 		self.graph=graph
 		self.genes=genes
 		self.cache_fitness=cache_fitness
 		self.n=len(self.genes)
-		if cache_fitness:
+		self.__cache_fitnes()
+	
+	def __cache_fitnes(self):
+		if self.cache_fitness:
 			self.fitness=self.compute_fitness()
 
 	def __repr__(self):
@@ -91,8 +95,10 @@ class Specie:
 		self.genes[i]=b
 		self.genes[j]=a
 
+		self.__cache_fitnes()
+
 	def copy(self):
-		return Specie(self.graph,list(self.genes),self.cache_fitness)		return Specie(self.graph,list(self.genes),self.cache_fitness)
+		return Specie(self.graph,list(self.genes),self.cache_fitness)
 
 	def print(self,pretty=True,tsp=True):
 		path=self.graph.path_to_string(self.genes,pretty,tsp)
