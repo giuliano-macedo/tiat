@@ -82,7 +82,7 @@ class Specie:
 		if len(_set)!=len(self.genes) or self.graph.startindex in _set:
 			raise RuntimeError("invalid genes",self.genes)
 		self.cost=self.graph.tsp_weight(self.genes)
-		return 1/self.cost
+		return 1e9/self.cost
 
 	def mutate(self):
 		#pair mutation
