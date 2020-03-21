@@ -82,6 +82,81 @@
             "Água Clara",
             "Camapuã",
             213
+        ],
+        [
+            "Campo Grande",
+            "Bonito",
+            325
+        ],
+        [
+            "Campo Grande",
+            "Corumbá",
+            420
+        ],
+        [
+            "Bonito",
+            "Corumbá",
+            335
+        ],
+        [
+            "Campo Grande",
+            "Dourados",
+            230
+        ],
+        [
+            "Bonito",
+            "Dourados",
+            270
+        ],
+        [
+            "Corumbá",
+            "Dourados",
+            588
+        ],
+        [
+            "Campo Grande",
+            "Camapuã",
+            143
+        ],
+        [
+            "Bonito",
+            "Camapuã",
+            285
+        ],
+        [
+            "Corumbá",
+            "Camapuã",
+            563
+        ],
+        [
+            "Dourados",
+            "Camapuã",
+            373
+        ],
+        [
+            "Campo Grande",
+            "Água Clara",
+            189
+        ],
+        [
+            "Bonito",
+            "Água Clara",
+            474
+        ],
+        [
+            "Corumbá",
+            "Água Clara",
+            609
+        ],
+        [
+            "Dourados",
+            "Água Clara",
+            413
+        ],
+        [
+            "Camapuã",
+            "Água Clara",
+            213
         ]
     ]
 }
