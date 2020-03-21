@@ -1,0 +1,2 @@
+numpy
+Unidecode>=1.1.1
