@@ -4,7 +4,7 @@ def probabiliy(s):
 	if not (0<=n<=100):
 		raise RuntimeError("Value must be a probability in percentage")
 	return n/100
-def get_args(p=5,c=.65,m=.5,s=42):
+def get_args(p=5,c=.65,m=.1,s=42):
 	parser=argparse.ArgumentParser()
 	parser.add_argument("-p",
 		"--population_size",
