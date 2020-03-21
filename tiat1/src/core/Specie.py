@@ -75,11 +75,9 @@ class Specie:
 	def compute_fitness(self):
 		_set=set(self.genes)
 
-		startindex=self.graph.startindex
-
-		if len(_set)!=len(self.genes) or startindex in _set:
+		if len(_set)!=len(self.genes) or self.graph.startindex in _set:
 			raise RuntimeError("invalid genes",self.genes)
-		self.cost=self.graph.path_weight([startindex]+self.genes+[startindex])
+		self.cost=self.graph.tsp_weight(self.genes)
 		return 1/self.cost
 
 	def mutate(self):

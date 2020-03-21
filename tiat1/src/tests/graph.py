@@ -7,7 +7,7 @@ from core import Graph
 def test_path(path,expected=True):
 	print("path:",path)
 	try:
-		ans=graph.path_weight(path)
+		ans=graph.tsp_weight(path)
 	except Exception as e:
 		if expected:
 			raise e
@@ -18,7 +18,7 @@ graph=Graph("../graph.json")
 print(graph.get_names_pretty())
 print(graph.edges)
 print("-"*48)
-path=list(range(graph.n))
+path=list(range(1,graph.n))
 test_path(path)
 for _ in range(20):
 	shuffle(path)

@@ -1,5 +1,6 @@
 import json
 import numpy as np
+from itertools import chain
 class Graph:
 	def __init__(self,fname="graph.json",start=None):
 		self.fname=fname
@@ -13,7 +14,6 @@ class Graph:
 			i=self.nodes.index(namei)
 			j=self.nodes.index(namej)
 			self.edges[i][j]=w
-			self.edges[j][i]=w
 
 	def __repr__(self):
 		return f"Graph({repr(self.fname)})"
@@ -33,6 +33,17 @@ class Graph:
 			self.edges[i][j] for i,j in zip(path,path[1:]) #iterate two in two
 		))
 		if np.isnan(ans):
-			raise RuntimeError("invalid path")
+			raise RuntimeError("invalid path",path)
 		return ans
 
+	def tsp_weight(self,path):
+		
+		ans=self.path_weight(path)
+
+		ans+=self.edges[self.startindex][path[0]]
+		ans+=self.edges[path[-1]][self.startindex]
+
+		if np.isnan(ans):
+			raise RuntimeError("invalid path",path)
+
+		return ans
