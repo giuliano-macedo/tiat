@@ -45,7 +45,7 @@ class Pool:
 		self.species=next_species
 
 	def __breed(self):
-		for i,j in zip(range(self.popsize),range(1,self.popsize)):
+		for i,j in zip(range(0,self.popsize,2),range(1,self.popsize,2)):
 			if np.random.random() < self.crossover_rate:
 				p1,p2=self.species[i],self.species[j]
 
