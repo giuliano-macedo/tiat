@@ -92,4 +92,8 @@ class Specie:
 		self.genes[j]=a
 
 	def copy(self):
-		return Specie(self.graph,list(self.genes),self.cache_fitness)
+		return Specie(self.graph,list(self.genes),self.cache_fitness)		return Specie(self.graph,list(self.genes),self.cache_fitness)
+
+	def print(self,pretty=True,tsp=True):
+		path=self.graph.path_to_string(self.genes,pretty,tsp)
+		print(f"path: {path} cost:{self.cost:.2f} fitness {self.fitness:.2e}")
