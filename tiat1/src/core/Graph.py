@@ -1,6 +1,6 @@
 import json
 import numpy as np
-from itertools import chain
+from unidecode import unidecode
 class Graph:
 	def __init__(self,fname="graph.json",start=None):
 		self.fname=fname
@@ -21,7 +21,7 @@ class Graph:
 	def get_names_pretty(self):
 		ans=[]
 		for name in self.nodes:
-			name_splitted=name.split(" ")
+			name_splitted=unidecode(name).split(" ")
 			if len(name_splitted)==1:
 				ans.append(name[:3].lower())
 			else:
@@ -47,3 +47,7 @@ class Graph:
 			raise RuntimeError("invalid path",path)
 
 		return ans
+
+	def print_path(self,path,pretty=True):
+		names=self.get_names_pretty() if pretty==True else self.nodes
+		print(" -> ".join((names[i] for i in path)))

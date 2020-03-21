@@ -5,7 +5,8 @@ from random import shuffle
 from core import Graph
 
 def test_path(path,expected=True):
-	print("path:",path)
+	print("path:")
+	graph.print_path(path)
 	try:
 		ans=graph.tsp_weight(path)
 	except Exception as e:
