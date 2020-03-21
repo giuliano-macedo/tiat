@@ -9,6 +9,15 @@ def probabiliy(s):
 	if not (0<=n<=100):
 		raise RuntimeError("Value must be a probability in percentage")
 	return n/100
+def get_global_minimum(graph):
+	initial=list(set(range(graph.n))-{graph.startindex})
+	ans=max((Specie(graph,list(sol))) for sol in permutations(initial))
+	print("best paths:")
+	for sol in permutations(initial):
+		specie=Specie(graph,list(sol))
+		if specie.cost==ans.cost:
+			specie.print()
+	return ans
 parser=argparse.ArgumentParser()
 parser.add_argument("-p","--population_size",type=int,default=5)
 parser.add_argument("-c","--crossover_rate",type=probabiliy,default=.65)
@@ -27,14 +36,13 @@ pool=Pool(
 	args.crossover_rate,
 	args.mutation_rate
 )
-print(pool.mutation_rate)
-initial=list(set(range(graph.n))-{graph.startindex})
-gloabl_minimum=min(Specie(graph,list(sol)).cost for sol in permutations(initial))
-
+global_minimum=get_global_minimum(graph)
 best_costs=[pool.best.cost]
-while pool.best.cost!=gloabl_minimum:
+while pool.best.cost!=global_minimum.cost:
 	pool.step()
 	best_costs.append(pool.best.cost)
+print("path found:")
+pool.best.print()
 
 plt.plot(range(0,len(best_costs)),best_costs)
 plt.xlabel("Generation")
