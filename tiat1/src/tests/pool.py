@@ -21,5 +21,6 @@ gloabl_minimum=max(Specie(graph,list(sol)) for sol in permutations(initial))
 print("global minimum",gloabl_minimum.cost)
 
 while pool.best.cost!=gloabl_minimum.cost:
+	print(pool.gen,pool.is_saturated())
 	pool.step()
 print(f"took {pool.gen} generations to reach gloabl minimum cost")

@@ -65,3 +65,6 @@ class Pool:
 		self.__mutate()
 		self.__update_ps()
 		self.gen+=1
+
+	def is_saturated(self):
+		return len(set((tuple(specie.genes) for specie in self.species)))==1
