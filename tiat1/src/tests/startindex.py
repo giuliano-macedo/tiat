@@ -12,4 +12,4 @@ for i in range(graph.n):
 
 	gloabl_minimum=max(Specie(graph,list(sol)) for sol in permutations(initial))
 
-	print(f"global minimum for {start:15}: cost={gloabl_minimum.cost} path={gloabl_minimum.genes}")
+	print(f"global minimum for starting and ending in {start:15}: cost={gloabl_minimum.cost} path={gloabl_minimum.genes}")
