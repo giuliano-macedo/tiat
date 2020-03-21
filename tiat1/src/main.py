@@ -1,14 +1,9 @@
-import argparse
 import matplotlib.pyplot as plt
 from itertools import permutations
 from core import Graph,Specie,Pool
 import numpy as np
+from args import get_args
 
-def probabiliy(s):
-	n=float(s)
-	if not (0<=n<=100):
-		raise RuntimeError("Value must be a probability in percentage")
-	return n/100
 def get_global_minimum(graph):
 	initial=list(set(range(graph.n))-{graph.startindex})
 	ans=max((Specie(graph,list(sol))) for sol in permutations(initial))
@@ -18,13 +13,7 @@ def get_global_minimum(graph):
 		if specie.cost==ans.cost:
 			specie.print()
 	return ans
-parser=argparse.ArgumentParser()
-parser.add_argument("-p","--population_size",type=int,default=5)
-parser.add_argument("-c","--crossover_rate",type=probabiliy,default=.65)
-parser.add_argument("-m","--mutation_rate",type=probabiliy,default=.5)
-parser.add_argument("-s","--seed",type=int,default=42)
-
-args=parser.parse_args()
+args=get_args()
 
 np.random.seed(args.seed)
 
