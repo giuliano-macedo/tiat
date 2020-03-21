@@ -48,6 +48,11 @@ class Graph:
 
 		return ans
 
-	def print_path(self,path,pretty=True):
+	def print_path(self,path,pretty=True,tsp=False):
+		print(self.path_to_string(path,pretty,tsp))
+
+	def path_to_string(self,path,pretty=True,tsp=False):
 		names=self.get_names_pretty() if pretty==True else self.nodes
-		print(" -> ".join((names[i] for i in path)))
+		if tsp:
+			path=[self.startindex]+path+[self.startindex]
+		return " -> ".join((names[i] for i in path))
