@@ -24,5 +24,5 @@ for i in tqdm(range(no_iterations)):
 	pool.step()
 	tqdm.write(f"gen {pool.gen:4} cost:{pool.best.cost:10}")
 with open("best_extra.p","wb") as f:
-	pickle.dump(pool,f)
+	pickle.dump(pool.best.genes,f)
 pool.best.print(pretty=False)
