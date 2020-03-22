@@ -3,6 +3,7 @@ import numpy as np
 from args import get_args
 from tqdm import tqdm
 import pickle
+import os
 
 args=get_args(p=1000,m=0.01)
 
@@ -10,8 +11,11 @@ np.random.seed(args.seed)
 
 graph=Graph("states.json","Mato Grosso do Sul")
 
-with open("best_extra.p","rb") as f:
-	initial=pickle.load(f)
+initial=None
+
+if os.path.isfile("best_extra.p"):
+	with open("best_extra.p","rb") as f:
+		initial=pickle.load(f)
 pool=Pool(
 	graph,
 	args.population_size,
