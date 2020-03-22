@@ -13,7 +13,7 @@ def roullete_wheel(ps,haystack):
 			return needle
 
 class Pool:
-	def __init__(self,graph,popsize,crossover_rate,mutation_rate):
+	def __init__(self,graph,popsize,crossover_rate,mutation_rate,initial=None):
 		
 		self.graph=graph
 		self.popsize=popsize
@@ -21,13 +21,16 @@ class Pool:
 		self.mutation_rate=mutation_rate
 
 		self.gen=0
-		dummy_genes=list(set(range(graph.n))-{self.graph.startindex})
-
+		dummy_genes=list(set(range(graph.n))-{self.graph.startindex}) if initial is None else initial
 		self.species=[]
 
-		for _ in range(10):
-			np.random.shuffle(dummy_genes)
-			self.species.append(Specie(self.graph,list(dummy_genes)))
+		for _ in range(popsize):
+			specie=Specie(self.graph,list(dummy_genes))
+			if initial==None:
+				np.random.shuffle(specie.genes)
+			else:
+				specie.mutate()
+			self.species.append(specie)
 		self.best=None
 		self.__update_ps()
 
@@ -66,5 +69,8 @@ class Pool:
 		self.__update_ps()
 		self.gen+=1
 
+	def no_unique_species(self):
+		return len(set((tuple(specie.genes) for specie in self.species)))
+
 	def is_saturated(self):
-		return len(set((tuple(specie.genes) for specie in self.species)))==1
+		return self.no_unique_species()==1
