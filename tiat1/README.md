@@ -17,7 +17,7 @@ Dada a matriz de adjacência abaixo, faça um algoritmo genético que minimize o
 
 ## Problema extra
 Com o dataset encontrado em `states.json` baixado [daqui](https://github.com/llpinokio/tsp_dataset_brazilian_cities/blob/master/results/states_merged.json)
-ache o melhor caminho do caixeiro viajante começando e terminando em "Mato Grosso do Sul" utilizando algorítmos genéticos.
+ache o melhor caminho do caixeiro viajante começando e terminando em "Mato Grosso do Sul" utilizando algoritmos genéticos.
 
 melhor caminho encontrado:
 ```
