@@ -23,15 +23,19 @@ pool=Pool(
 	args.mutation_rate,
 	initial
 )
-no_iterations=int(5e4)
 
 last_best=None
+try:
+	progress=tqdm(unit=" gen")
+	while True:
+		progress.update()
+		pool.step()
+		if last_best==None or last_best.cost!=pool.best.cost:
+			tqdm.write(f"new best specie in gen {pool.gen:4} cost:{pool.best.cost:10}")
+			last_best=pool.best
+			with open("best_extra.p","wb") as f:
+				pickle.dump(pool.best.genes,f)
+except KeyboardInterrupt:
+	print("\nexiting")
 
-for i in tqdm(range(no_iterations)):
-	pool.step()
-	if last_best==None or last_best.cost!=pool.best.cost:
-		tqdm.write(f"gen {pool.gen:4} cost:{pool.best.cost:10}")
-		last_best=pool.best
-		with open("best_extra.p","wb") as f:
-			pickle.dump(pool.best.genes,f)
 pool.best.print(pretty=False)
