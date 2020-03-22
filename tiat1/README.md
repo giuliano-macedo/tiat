@@ -21,11 +21,10 @@ ache o melhor caminho do caixeiro viajante começando e terminando em "Mato Gros
 
 melhor caminho encontrado:
 ```
-Mato Grosso do Sul -> Rio Grande do Sul -> Santa Catarina -> 
-Paraná -> São Paulo -> Rio de Janeiro -> Espírito Santo -> 
-Minas Gerais -> Goiás -> Tocantins -> Ceará -> Rio Grande do Norte -> 
-Paraíba -> Pernambuco -> Alagoas -> Sergipe -> Bahia -> Piauí -> Maranhão -> 
-Pará -> Amapá -> Mato Grosso -> Rondônia -> Amazonas -> Roraima -> Acre -> 
+Mato Grosso do Sul -> Rio Grande do Sul -> Santa Catarina -> Paraná -> São Paulo ->
+Rio de Janeiro -> Espírito Santo -> Minas Gerais -> Goiás -> Tocantins -> Bahia ->
+Sergipe -> Alagoas -> Pernambuco -> Paraíba -> Rio Grande do Norte -> Ceará -> Piauí ->
+Maranhão -> Pará -> Amapá -> Mato Grosso -> Rondônia -> Amazonas -> Roraima -> Acre ->
 Mato Grosso do Sul
 ```
-custo : 14,519,563.74 Km
+custo : 13,638,501.73682064
