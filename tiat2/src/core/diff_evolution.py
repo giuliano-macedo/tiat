@@ -18,12 +18,12 @@ class DE:
 			v=self.pop[alpha] - (self.f*(self.pop[beta]-self.pop[gamma]))
 			u=np.zeros((len(v)))
 			
-			for i,(xj,vj) in enumerate(zip(x,v)):
+			for j,(Xij,Vij) in enumerate(zip(x,v)):
 				rand=random.random()
-				u[i]=vj if rand <= self.cr else xj
+				u[j]=Vij if rand <= self.cr else Xij
 
 			new_pop.append(min([x,u],key=self.fitness))
-		
+
 		self.pop=new_pop
 		self.gen+=1
 
