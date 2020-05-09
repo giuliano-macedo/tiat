@@ -17,7 +17,7 @@ class DE:
 
 			v=self.pop[alpha] + (self.f*(self.pop[beta]-self.pop[gamma]))
 			
-			u=np.array([ (vi if (random.random() <= self.cr) else xi) for xi,vi in zip(x,v)])
+			u=np.fromiter(( (vi if (random.random() <= self.cr) else xi) for xi,vi in zip(x,v)),np.float)
 			
 			new_pop.append(min([x,u],key=self.fitness))
 
