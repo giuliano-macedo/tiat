@@ -13,7 +13,6 @@ feat_size=5
 pop=[]
 for i in range(popsize):
 	pop.append(np.random.rand(feat_size)*5)
-
 de=DE(
 	init_pop=pop,
 	fitness_callable=np.sum,

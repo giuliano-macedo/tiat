@@ -4,6 +4,7 @@ import random
 class DE:
 	def __init__(self,init_pop,fitness_callable,cr,f):
 		self.pop=init_pop
+		self.pop_size=len(self.pop)
 		self.fitness=fitness_callable
 		self.cr=cr
 		self.f=f
@@ -11,17 +12,13 @@ class DE:
 
 	def step(self):
 		new_pop=[]
-		for i in self.pop:
-			alpha,beta,gamma=random.sample(range(len(self.pop)),3)
-			
-			x=self.pop[alpha]
-			v=self.pop[alpha] - (self.f*(self.pop[beta]-self.pop[gamma]))
-			u=np.zeros((len(v)))
-			
-			for j,(Xij,Vij) in enumerate(zip(x,v)):
-				rand=random.random()
-				u[j]=Vij if rand <= self.cr else Xij
+		for x in self.pop:
+			alpha,beta,gamma=random.sample(range(self.pop_size),3)
 
+			v=self.pop[alpha] + (self.f*(self.pop[beta]-self.pop[gamma]))
+			
+			u=np.array([ (vi if (random.random() <= self.cr) else xi) for xi,vi in zip(x,v)])
+			
 			new_pop.append(min([x,u],key=self.fitness))
 
 		self.pop=new_pop
