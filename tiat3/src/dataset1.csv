@@ -1,0 +1,13 @@
+Sono,Transporte,UFMS,Álcool,Sair,label
+Pouco,Carro,Sim,Sim,Não,1
+Pouco,Carona,Não,Não,Sim,1
+Sim,Carro,Não,Sim,Sim,0
+Pouco,Carona,Não,Não,Sim,1
+Sim,Outros,Sim,Sim,Sim,0
+Pouco,Outros,Não,Sim,Não,0
+Pouco,Carro,Sim,Não,Sim,1
+Pouco,Carona,Não,Não,Não,0
+Sim,Carro,Não,Sim,Sim,0
+Não,Outros,Sim,Sim,Sim,1
+Não,Carro,Não,Sim,Sim,1
+Não,Carona,Não,Sim,Sim,1 
