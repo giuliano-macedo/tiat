@@ -11,7 +11,7 @@ def entropy(negatives_length: int, positives_length: int):
 
 
 class Tree:
-    def __init__(self, sn, sp, children):
+    def __init__(self, sn=[], sp=[], children=[]):
         self.sn = sn
         self.sp = sp
         self.children = children
@@ -28,9 +28,13 @@ class DecisionTree:
         self.examples = [Example(t[0:-1], bool(t[-1])) for t in df.values]
         self.attr_values = self._get_attr_values()
 
-        s_n, s_p = self._find_p_where(self.examples)
-        print("gain for Sono", self._gain(0, self.examples))
+        gains = []
 
+        for i in range(len(self.attributes)):
+            gains.append((self.attributes[i], self._gain(i, self.examples)))
+
+        gains.sort(key=lambda t: t[1])
+        print(*gains[::-1], sep="\n")
         exit()
 
         self.tree = self._id3(atributes, examples)
@@ -70,11 +74,9 @@ class DecisionTree:
         sum_ = 0
         for attr_value in self.attr_values[attribute]:
             sn, sp = self._find_p_where(examples, attribute_index, attr_value)
-            # print("for", attr_value)
-            # print(f"entropy(-{len(sn)},+{len(sp)})*{len(sn+sp)}/{len(examples)}")
-            e = entropy(len(sn), len(sp))
+            e = 0 if (len(sn) == 0 or len(sp) == 0) else entropy(len(sn), len(sp))
             sum_ += (len(sn + sp) / len(examples)) * e
         return entropy_s - sum_
 
     def _id3(self, attributes, examples):
-        pass
+        return Tree()
