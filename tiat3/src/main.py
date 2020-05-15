@@ -1,8 +1,15 @@
 from core import DecisionTree
 from tempfile import gettempdir
 
-dt = DecisionTree("dataset_aula.csv")
-# dt = DecisionTree("dataset_trabalho.csv")
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument("dataset", type=str, choices=["aula", "trabalho"])
+args = parser.parse_args()
+dt = DecisionTree(
+    "dataset_aula.csv" if args.dataset == "aula" else "dataset_trabalho.csv"
+)
+
 
 dot = dt.tree.to_graphviz()
 
