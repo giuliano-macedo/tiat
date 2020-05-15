@@ -12,7 +12,7 @@ def entropy(negatives_length: int, positives_length: int):
 
 class Tree:
     def __init__(
-        self, sn=[], sp=[], children=[], gain=0, label="", parent_edge_label=""
+        self, sn=[], sp=[], children=[], gain=0, label="", parent_edge_label=None
     ):
         self.sn = sn
         self.sp = sp
@@ -25,6 +25,9 @@ class Tree:
     def is_leaf(self):
         return len(self.sn) == 0 or len(self.sp) == 0
 
+    def is_root(self):
+        return self.parent_edge_label == None
+
     def __repr__(self):
         return f"Tree(parent_edge_label={repr(self.parent_edge_label)},label={repr(self.label)},children={self.children})"
         # return f"Tree({self.sn},{self.sp},{self.children},{self.gain},{self.label})"
@@ -33,7 +36,7 @@ class Tree:
         return repr(self)
 
 
-Example = namedtuple("Example", ["attributes", "label"])
+Example = namedtuple("Example", ["attributes", "label", "id"])
 
 
 class DecisionTree:
@@ -41,7 +44,10 @@ class DecisionTree:
         df = read_csv(fname)
         self.attributes = list(df.keys())
         assert self.attributes.pop(-1) == "label"
-        self.examples = [Example(t[0:-1], bool(t[-1])) for t in df.values]
+        self.examples = [
+            Example(attributes=t[0:-1], label=bool(t[-1], id=i))
+            for i, t in enumerate(df.values)
+        ]
         self.attr_values = self._get_attr_values()
 
         self.tree = self._id3(self.examples)
