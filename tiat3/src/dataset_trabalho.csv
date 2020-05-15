@@ -1,0 +1,11 @@
+"Filme País de Origem","Grande Estrela","Gênero Sucesso",label
+EUA,Sim, Ficção Científica ,1
+EUA,Não, Comédia ,0
+EUA,Sim, Comédia ,1
+Europeu,Não, Comédia ,1
+Europeu,Sim, Ficção Científica ,0
+Europeu,Sim, Romance ,0
+Brasil,Sim, Comédia ,0
+Brasil,Não, Ficção Científica ,0
+Europeu,Sim, Comédia ,1
+EUA,Sim, Comédia ,1

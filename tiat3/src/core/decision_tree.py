@@ -90,6 +90,14 @@ class DecisionTree:
             key=lambda t: t[0].gain,
         )
         visited_attributes.add(attr_i)
+        no_non_leaf_nodes = sum(
+            1 for children in new_node.children if not children.is_leaf()
+        )
+
+        # if no_non_leaf_nodes > 1:
+        #     # DUNNO what do here
+        #     raise RuntimeError("Unexpected error")
+        new_node.children = new_node.children[::-1]
         for i, children in enumerate(new_node.children):
             if children.is_leaf():
                 continue

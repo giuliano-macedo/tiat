@@ -34,13 +34,31 @@ class Tree:
         """
         stack = deque([self])
         ans = graphviz.Graph()
+        record_list = lambda *l: "{" + ("|".join(l)) + "}"
+        get_sx = lambda sign, s: sign + ":" + (",".join((f"E{e.id+1}" for e in s)))
         while stack:
             tree = stack.popleft()
-            ans.node(tree.label)
+            ans.node(
+                tree.label,
+                label=record_list(
+                    tree.label,
+                    f"ganho:{tree.gain:.2f}",
+                    get_sx("+", tree.sp),
+                    get_sx("-", tree.sn),
+                ),
+                shape="record",
+            )
             for children in tree.children:
                 if children.is_leaf():
                     id_ = str(id(children))
-                    ans.node(id_, label="Sim!" if children.label else "Não.")
+                    label = "Sim!" if children.label else "Não."
+                    ans.node(
+                        id_,
+                        label=record_list(
+                            label, get_sx("+", children.sp), get_sx("-", children.sn)
+                        ),
+                        shape="record",
+                    )
                     ans.edge(tree.label, id_, label=children.parent_edge_label)
                 else:
                     stack.append(children)
