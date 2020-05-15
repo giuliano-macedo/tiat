@@ -1,6 +1,7 @@
 from pandas import read_csv
 from collections import namedtuple, defaultdict
 from math import log2
+from .tree import Tree
 
 
 def entropy(negatives_length: int, positives_length: int):
@@ -8,32 +9,6 @@ def entropy(negatives_length: int, positives_length: int):
     p_plus = positives_length / total
     p_negative = negatives_length / total
     return -(p_plus * log2(p_plus)) - (p_negative * log2(p_negative))
-
-
-class Tree:
-    def __init__(
-        self, sn=[], sp=[], children=[], gain=0, label="", parent_edge_label=None
-    ):
-        self.sn = sn
-        self.sp = sp
-        self.s = sn + sp
-        self.children = children
-        self.gain = gain
-        self.label = label
-        self.parent_edge_label = parent_edge_label
-
-    def is_leaf(self):
-        return len(self.sn) == 0 or len(self.sp) == 0
-
-    def is_root(self):
-        return self.parent_edge_label == None
-
-    def __repr__(self):
-        return f"Tree(parent_edge_label={repr(self.parent_edge_label)},label={repr(self.label)},children={self.children})"
-        # return f"Tree({self.sn},{self.sp},{self.children},{self.gain},{self.label})"
-
-    def __str__(self):
-        return repr(self)
 
 
 Example = namedtuple("Example", ["attributes", "label", "id"])
@@ -45,13 +20,12 @@ class DecisionTree:
         self.attributes = list(df.keys())
         assert self.attributes.pop(-1) == "label"
         self.examples = [
-            Example(attributes=t[0:-1], label=bool(t[-1], id=i))
+            Example(attributes=t[0:-1], label=bool(t[-1]), id=i)
             for i, t in enumerate(df.values)
         ]
         self.attr_values = self._get_attr_values()
 
         self.tree = self._id3(self.examples)
-        print(self.tree)
 
     def _get_attr_values(self):
         ans = defaultdict(set)
@@ -66,7 +40,7 @@ class DecisionTree:
     ):
         sp = []
         sn = []
-        if attr_index != None:
+        if attr_index != None:  # if it is None, compute for S
             examples = (
                 example
                 for example in examples
@@ -97,7 +71,7 @@ class DecisionTree:
             e = 0 if new_children.is_leaf() else entropy(len(sn), len(sp))
             if e == 0:
                 new_children.label = len(sp) != 0
-            sum_ += (len(sn + sp) / len(examples)) * e
+            sum_ += ((len(sn) + len(sp)) / len(examples)) * e
             children.append(new_children)
 
         gain = entropy_s - sum_
