@@ -26,7 +26,8 @@ class Tree:
         return len(self.sn) == 0 or len(self.sp) == 0
 
     def __repr__(self):
-        return f"Tree({self.sn},{self.sp},{self.children},{self.gain},{self.label})"
+        return f"Tree(parent_edge_label={repr(self.parent_edge_label)},label={repr(self.label)},children={self.children})"
+        # return f"Tree({self.sn},{self.sp},{self.children},{self.gain},{self.label})"
 
     def __str__(self):
         return repr(self)
@@ -43,17 +44,8 @@ class DecisionTree:
         self.examples = [Example(t[0:-1], bool(t[-1])) for t in df.values]
         self.attr_values = self._get_attr_values()
 
-        best_candidate = max(
-            (self._build_node(i, self.examples) for i in range(len(self.attributes))),
-            key=lambda t: t.gain,
-        )
-
-        print(best_candidate.label, best_candidate.gain)
-        for children in best_candidate.children:
-            print(children.parent_edge_label, children.is_leaf())
-        exit()
-
-        self.tree = self._id3(self.atributes, self.examples)
+        self.tree = self._id3(self.examples)
+        print(self.tree)
 
     def _get_attr_values(self):
         ans = defaultdict(set)
@@ -88,22 +80,40 @@ class DecisionTree:
         examples_negatives, examples_positives = self._find_p_where(examples)
         entropy_s = entropy(len(examples_negatives), len(examples_positives))
         attribute = self.attributes[attribute_index]
-        # print("entropy_s", entropy_s)
-        # print("attribute", attribute)
 
         children = []
 
         sum_ = 0
         for attr_value in self.attr_values[attribute]:
             sn, sp = self._find_p_where(examples, attribute_index, attr_value)
-            children.append(Tree(sn, sp, parent_edge_label=attr_value))
+            new_children = Tree(sn, sp, parent_edge_label=attr_value)
             # DUNNO if is corect
-            e = 0 if (len(sn) == 0 or len(sp) == 0) else entropy(len(sn), len(sp))
+            e = 0 if new_children.is_leaf() else entropy(len(sn), len(sp))
+            if e == 0:
+                new_children.label = len(sp) != 0
             sum_ += (len(sn + sp) / len(examples)) * e
+            children.append(new_children)
 
         gain = entropy_s - sum_
 
         return Tree(examples_negatives, examples_positives, children, gain, attribute)
 
-    def _id3(self, attributes, examples):
-        return Tree()
+    def _id3(self, examples, visited_attributes=None):
+        if visited_attributes == None:
+            visited_attributes = set()
+        new_node, attr_i = max(
+            (
+                (self._build_node(i, examples), i)
+                for i, _ in enumerate(self.attributes)
+                if i not in visited_attributes
+            ),
+            key=lambda t: t[0].gain,
+        )
+        visited_attributes.add(attr_i)
+        for i, children in enumerate(new_node.children):
+            if children.is_leaf():
+                continue
+            new_children = self._id3(children.s, visited_attributes)
+            new_children.parent_edge_label = children.parent_edge_label
+            new_node.children[i] = new_children
+        return new_node
